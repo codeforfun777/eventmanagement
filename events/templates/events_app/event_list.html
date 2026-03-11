@@ -1,0 +1,32 @@
+{% extends "events_app/base.html" %}
+
+{% block content %}
+<div class="flex justify-between items-center mb-6">
+    <h2 class="text-3xl font-extrabold text-gray-800">Available Events</h2>
+    <a href="{% url 'event-create' %}" class="bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+        Create New Event
+    </a>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for event in events %}
+    <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-lg">
+        <span class="text-xs font-semibold uppercase text-indigo-600 bg-indigo-50 px-2 py-1 rounded">
+            {{ event.category.name }}
+        </span>
+        <h3 class="text-xl font-bold mt-2 text-gray-900">{{ event.name }}</h3>
+        <p class="text-gray-600 text-sm mt-1 line-clamp-2">{{ event.description }}</p>
+        
+        <div class="mt-4 flex items-center justify-between text-sm text-gray-500">
+            <span>{{ event.location }}</span>
+            <span>{{ event.date }}</span>
+        </div>
+
+        <div class="mt-6 flex gap-2">
+            <a href="{% url 'event-update' event.id %}" class="flex-1 text-center py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Edit</a>
+            <a href="{% url 'event-delete' event.id %}" class="flex-1 text-center py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
